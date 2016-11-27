@@ -10,9 +10,9 @@ const _ = require('./utils')
  * 数组下标：0  1  2  ... n-1  ...maxLen
  */
 class List {
-	constructor() {
+	constructor( maxLen ) {
 		// 模拟申请固定的内存空间，将存放线性表的数组的长度固定，线性表的长度不能超过数组长度
-		this.maxLen = 5
+		this.maxLen = maxLen
 		// 线性表容器，固定长度，maxLen === container.length
 		this.container = new Array( this.maxLen )
 		// 线性表长度
@@ -20,10 +20,10 @@ class List {
 	}
 
 	getElem( index ) {
-		_.assert( this.len > 0, '线性表不存在' )
-		_.assert( index <= this.maxLen, '插入位置不在线性表范围内' )
-		const elemPostion = index - 1
-		return this.container[ elemPostion ]
+		_.assert( this.len > 0, '线性表为空' )
+		_.assert( index >= 1 && index <= this.maxLen, '取出位置不在线性表范围内' )
+		const elemPosition = index - 1
+		return this.container[ elemPosition ]
 	}
 	
 	/**
@@ -58,11 +58,32 @@ class List {
 		// 返回插入成功的元素
 		return elem
 	}
+
+	del( index ) {
+		_.assert( this.len > 0, '线性表为空' )
+		_.assert( index >= 1 && index <= this.maxLen, '删除位置不在线性表范围内' )
+		// 保存被删除的元素
+		const elem = this.container[ index-1 ]
+		// 如果插入的元素不在线性表末尾，而是在线性表体中删除
+		// 先将待插入位置后面的所有元素往前移动一位
+		//      | 删除elem
+		// [ 1, 2, 3, 4, x ]
+		//         3, 4 往前移动一位
+		// [ 1, 3, 4, x, x ]
+		if( index < this.len ) {
+			// 将删除元素所在位置的后继位置往前移动
+			for( let i = index; i < this.len; i++ ) {
+				this.container[ i-1 ] = this.container[ i ]
+			}
+		}
+		// 修正线性表前移后最后一个元素重复的问题
+		// [ 1, 2, 3, 4, 5 ] -> [ 1, 3, 4, 5, 5 ] -> [ 1, 3, 4, 5, undefined ]
+		this.container[ this.len-1 ] = void 0
+		// 改变线性表长度
+		this.len--
+		// 返回删除成功的元素
+		return elem
+	}
 }
 
-const list = new List()
-
-
-list.insert( 1, 1 )
-
-console.log( list )
+module.exports = List
