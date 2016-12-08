@@ -14,7 +14,7 @@ class List {
 		// 模拟申请固定的内存空间，将存放线性表的数组的长度固定，线性表的长度不能超过数组长度
 		this.maxLen = maxLen
 		// 线性表容器，固定长度，maxLen === container.length
-		this.container = new Array( this.maxLen )
+		this.container = new Array( maxLen )
 		// 线性表长度
 		this.len = 0
 	}
@@ -35,7 +35,7 @@ class List {
 	 */
 	insert( index, elem ) {
 		_.assert( index >= 1 && index <= this.maxLen, '插入位置不在线性表范围内' )
-		// 如果用 <= 就会造成 this.len === this.maxLen 的时候也通过，还能继续插入，造成溢出而不发生异常
+		// !== 如果用 <= 就会造成 this.len === this.maxLen 的时候也通过，还能继续插入，造成溢出而不发生异常
 		// 因为 this.len 是用 this.len++的方式递增，所以总会有 this.len === this.maxLen，就不能再插入
 		_.assert( this.len !== this.maxLen, '线性表已满，无法插入' )
 		// 如果插入的元素不在线性表末尾，而是在线性表体中插入
@@ -78,11 +78,15 @@ class List {
 		}
 		// 修正线性表前移后最后一个元素重复的问题
 		// [ 1, 2, 3, 4, 5 ] -> [ 1, 3, 4, 5, 5 ] -> [ 1, 3, 4, 5, undefined ]
-		this.container[ this.len-1 ] = void 0
+		this.container[ this.len-1 ] = undefined
 		// 改变线性表长度
 		this.len--
 		// 返回删除成功的元素
 		return elem
+	}
+
+	getLen() {
+		return this.len
 	}
 }
 
