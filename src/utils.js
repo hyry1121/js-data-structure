@@ -1,4 +1,4 @@
-exports.assert = function( condition, msg ) {
+exports.assert = ( condition, msg ) => {
   if( !condition ) {
     throw new Error( msg + '' )
   }

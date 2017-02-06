@@ -43,7 +43,7 @@ class Stack {
 		return top
 	}
 
-	top() {
+	getTop() {
 		return this.container[ this.len-1 ]
 	}
 
@@ -54,7 +54,7 @@ class Stack {
 		this.len = 0
 	}
 
-	len() {
+	getLength() {
 		return this.len
 	}
 }

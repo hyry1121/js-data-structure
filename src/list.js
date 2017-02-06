@@ -85,7 +85,7 @@ class List {
 		return elem
 	}
 
-	getLen() {
+	getLength() {
 		return this.len
 	}
 }
