@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    tr {
+      height: 50px;
+    }
+    td {
+      width: 50px;
+      background-color: #b8b8b8;
+    }
+    #td-22 {
+      background-color: orange;
+    }
+    #td-99 {
+      background-color: green;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <table id="maze">
+  </table>
+
+  <script>
+    const maze = document.querySelector( '#maze' )
+    for( let i = 1; i < 11; i++ ) {
+      let tr = maze.insertRow()
+      for( let j = 1; j < 11; j++ ) {
+        tr.insertCell().id = 'td-' + i + j
+      }
+    }
+  </script>
+  
+  <script src="./maze.js"></script>
+</body>
+</html>
