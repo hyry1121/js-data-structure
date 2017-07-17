@@ -13,7 +13,7 @@
  */
 
 function makeMaze( x, y ) {
-  let maze = []
+  let maze = new Array( x*y )
 
   for( let i = 0; i < x; i++ ) {
     maze[ i ] = []
